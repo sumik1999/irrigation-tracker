@@ -8,8 +8,7 @@ const createPowerEvent = async (req, res) => {
     motorId: Joi.number().required(),
     event: Joi.string().valid("on", "off").required(),
   });
-  console.log(req.body);
-  validator.validate(req.body);
+  Joi.assert(req.body, validator);
   await PowerEvent.create(req.body);
   res.status(201).send();
 };
