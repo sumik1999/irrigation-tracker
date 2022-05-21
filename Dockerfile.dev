@@ -1,0 +1,17 @@
+FROM node:16.14-alpine3.14
+
+RUN apk add --no-cache git
+RUN npm i -g npm
+
+RUN mkdir -p /src/node_modules
+WORKDIR /src
+# RUN delgroup -f node
+# RUN addgroup -S yaem -g ${GID} && adduser -S user --uid ${UID} --gid ${GID}
+# RUN chown -R user:yaem /src
+RUN chown -R node:node /src/node_modules
+
+USER node
+
+COPY . /src
+
+EXPOSE 3000
