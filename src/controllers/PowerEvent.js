@@ -14,6 +14,12 @@ const createPowerEvent = async (req, res) => {
 };
 
 const listPowerEvents = async (req, res) => {
+  const validator = Joi.object({
+    motorId: Joi.number().required(),
+    start: Joi.date().timestamp("unix").required(),
+    end: Joi.date().timestamp("unix").required(),
+  });
+  Joi.assert(req.query, validator);
   const events = (
     await PowerEvent.find({
       timestamp: {
